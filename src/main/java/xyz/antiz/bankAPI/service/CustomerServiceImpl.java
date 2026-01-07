@@ -32,14 +32,24 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> updateCustomer(Customer customer, Long id) {
+    public Customer updateCustomer(Customer upcustomer, Long id) {
         return customerRepository.findById(id).map(existing -> {
-            existing.setFirstName(customer.getFirstName());
-            existing.setLastName(customer.getLastName());
-            existing.setEmail(customer.getEmail());
-            existing.setPhoneNumber(customer.getPhoneNumber());
+            existing.setFirstName(upcustomer.getFirstName());
+            existing.setLastName(upcustomer.getLastName());
+            existing.setEmail(upcustomer.getEmail());
+            existing.setPhoneNumber(upcustomer.getPhoneNumber());
             return customerRepository.save(existing);
 
-        });
+        }).orElseThrow(() -> new RuntimeException("customer data not found "));
     }
+
+    @Override
+    public void deleteCustomer(Long id) {
+        if (customerRepository.findById(id).isPresent()) {
+            customerRepository.deleteById(id);
+        }else
+    throw new RuntimeException("customer data not found ");
+    }
+
+
 }

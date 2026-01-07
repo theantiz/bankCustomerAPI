@@ -9,6 +9,6 @@ public interface CustomerService {
 public Customer createCustomer(Customer customer);
 public List<Customer> getAllCustomers();
 public Optional<Customer> getCustomerById(Long id);
-public Optional<Customer> updateCustomer(Customer customer, Long id);
-
+public Customer updateCustomer(Customer customer, Long id);
+public void deleteCustomer(Long id);
 }
